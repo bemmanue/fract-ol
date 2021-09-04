@@ -12,49 +12,6 @@
 
 #include "fractol.h"
 
-void	calculate_color(t_fractol *data)
-{
-	double   		step[4];
-	int             i;
-	unsigned char	color[4];
-	int				color_step;
-
-	color_step = 0x0;
-	if (data->colormode % 3 == 0)
-	{
-		step[0] = (double) 0x00 / MAX_ITERATION;
-		step[1] = (double) 0x00 / MAX_ITERATION;
-		step[2] = (double) 0x00 / MAX_ITERATION;
-		step[3] = (double) 0xFF / MAX_ITERATION;
-	}
-	else if (data->colormode % 3 == 1)
-	{
-		step[0] = (double) 0x00 / MAX_ITERATION;
-		step[1] = (double) 0x00 / MAX_ITERATION;
-		step[2] = (double) 0xFF / MAX_ITERATION;
-		step[3] = (double) 0x00 / MAX_ITERATION;
-	}
-	else if (data->colormode % 3 == 2)
-	{
-		step[0] = (double) 0x00 / MAX_ITERATION;
-		step[1] = (double) 0xFF / MAX_ITERATION;
-		step[2] = (double) 0x00 / MAX_ITERATION;
-		step[3] = (double) 0x00 / MAX_ITERATION;
-	}
-	color[0] = step[0] * data->iteration;
-	color[1] = step[1] * data->iteration;
-	color[2] = step[2] * data->iteration;
-	color[3] = step[3] * data->iteration;
-	i = 0;
-	while (i <= 3)
-	{
-		color_step <<= 8;
-		color_step += color[i];
-		i++;
-	}
-	data->color = color_step;
-}
-
 int		key_hook(int keycode, t_fractol *data)
 {
 	if (keycode == ESCAPE)

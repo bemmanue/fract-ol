@@ -9,7 +9,7 @@
 
 # define WIDTH 500
 # define HEIGHT	500
-# define MAX_ITERATION 78
+# define MAX_ITERATION 32
 
 # define SPACEBAR 49
 # define ESCAPE 53
@@ -67,7 +67,9 @@ void		mandelbrot(t_fractol *data);
 void		julia(t_fractol *data);
 void		burningship(t_fractol *data);
 
+double		*calculate_colorstep(int t, int r, int g, int b);
 void    	calculate_color(t_fractol *data);
+
 int			key_hook(int keycode, t_fractol *data);
 int			mouse_hook(int mousecode, int x, int y, t_fractol *data);
 int			julia_motion(int x, int y, t_fractol *data);
