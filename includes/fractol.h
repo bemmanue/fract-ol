@@ -18,6 +18,9 @@
 # define KEY_RIGHT 124
 # define KEY_LEFT 123
 # define KEY_H 4
+# define PLUS 69
+# define MINUS 78
+# define CONTROL 15
 
 typedef struct		s_comp
 {
@@ -46,9 +49,10 @@ typedef struct	s_fractol
 	int			x;
 	int			y;
 	int 		color;
-	int			iteration;
 	int			color_step;
 	int 		colormode;
+	int			iteration;
+	int			max_iteration;
 }				t_fractol;
 
 t_fractol	*init_fractol(char *name);
@@ -67,9 +71,9 @@ void		mandelbrot(t_fractol *data);
 void		julia(t_fractol *data);
 void		burningship(t_fractol *data);
 
-double		*calculate_colorstep(int t, int r, int g, int b);
+double		*calculate_colorstep(t_fractol *data, int t, int r, int g, int b);
 void    	calculate_color(t_fractol *data);
-
+void		reset_fractol(t_fractol *data);
 int			key_hook(int keycode, t_fractol *data);
 int			mouse_hook(int mousecode, int x, int y, t_fractol *data);
 int			julia_motion(int x, int y, t_fractol *data);

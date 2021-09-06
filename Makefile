@@ -2,7 +2,7 @@
 NAME = fractol
 
 SRC_PATH = sources
-SRC_NAME = fractol.c hook.c mandelbrot.c draw_image.c julia.c burningship.c init_fractol.c help.c calculate_color.c
+SRC_NAME = fractol.c hook.c mandelbrot.c draw_image.c julia.c burningship.c init_fractol.c help.c calculate_color.c reset.c
 
 OBJ_PATH = objects
 OBJ_NAME = $(SRC_NAME:.c=.o)

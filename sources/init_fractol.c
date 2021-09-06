@@ -34,38 +34,38 @@ int	check_name(const char *s1, const char *s2)
 
 t_fractol	*fill_data(char *name, void (*calculate)(t_fractol *))
 {
-	t_fractol	*fractol;
+	t_fractol	*data;
 
-	fractol = malloc(sizeof(t_fractol));
-	if (!fractol)
+	data = malloc(sizeof(t_fractol));
+	if (!data)
 		return (NULL);
-	fractol->name = name;
-	fractol->calculate = calculate;
-	fractol->centre.re = WIDTH / 2;
-	fractol->centre.im = HEIGHT / 2;
-	fractol->min = init_complex(-2.0, -2.0);
-	fractol->max.re = 2.0;
-	fractol->max.im = fractol->min.im +
-			(fractol->max.re - fractol->min.re) * HEIGHT / WIDTH;
-	fractol->ratio.re = (fractol->max.re - fractol->min.re) / WIDTH;
-	fractol->ratio.im = (fractol->max.im - fractol->min.im) / HEIGHT;
-	fractol->k = init_complex(0.3, 0.4);
-	fractol->colormode = 0;
-	calculate_color(fractol);
-	return (fractol);
+	data->name = name;
+	data->calculate = calculate;
+	data->centre.re = WIDTH / 2;
+	data->centre.im = HEIGHT / 2;
+	data->min = init_complex(-2.0, -2.0);
+	data->max.re = 2.0;
+	data->max.im = data->min.im +
+			(data->max.re - data->min.re) * HEIGHT / WIDTH;
+	data->ratio.re = (data->max.re - data->min.re) / WIDTH;
+	data->ratio.im = (data->max.im - data->min.im) / HEIGHT;
+	data->k = init_complex(0.3, 0.4);
+	data->max_iteration = MAX_ITERATION;
+	data->colormode = 0;
+	return (data);
 }
 
 t_fractol	*init_fractol(char *name)
 {
-	t_fractol	*fractol;
+	t_fractol	*data;
 
 	if (check_name("Mandelbrot", name))
-		fractol = fill_data("Mandelbrot", &mandelbrot);
+		data = fill_data("Mandelbrot", &mandelbrot);
 	else if (check_name("Julia", name))
-		fractol = fill_data("Julia", &julia);
+		data = fill_data("Julia", &julia);
 	else if (check_name("Burningship", name))
-		fractol = fill_data("Burningship", &burningship);
+		data = fill_data("Burningship", &burningship);
 	else
-		fractol = NULL;
-	return (fractol);
+		data = NULL;
+	return (data);
 }

@@ -47,7 +47,7 @@ int	draw_image(t_fractol *data)
 			data->z = init_complex(data->c.re, data->c.im);
 			(data->calculate)(data);
 			calculate_color(data);
-			if (data->iteration != MAX_ITERATION)
+			if (data->iteration != data->max_iteration)
 				pixel_put(data, data->x, data->y, data->color);
 			else
 				pixel_put(data, data->x, data->y, 0x00000000);

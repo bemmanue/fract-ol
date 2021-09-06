@@ -16,7 +16,7 @@
 void	burningship(t_fractol *data)
 {
 	while (pow(data->z.re, 2.0) + pow(data->z.im, 2.0) <= 4 &&
-	data->iteration < MAX_ITERATION)
+	data->iteration < data->max_iteration)
 	{
 		data->z = init_complex(
 				pow(data->z.re, 2.0) - pow(data->z.im, 2.0) +

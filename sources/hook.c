@@ -26,6 +26,12 @@ int		key_hook(int keycode, t_fractol *data)
 		data->centre.re -= 20;
 	else if (keycode == KEY_LEFT)
 		data->centre.re += 20;
+	else if (keycode == PLUS)
+		data->max_iteration++;
+	else if (keycode == MINUS)
+		data->max_iteration--;
+	else if (keycode == CONTROL)
+		reset_fractol(data);
 	mlx_destroy_image(data->mlx, data->img);
 	new_image(data);
 	return (0);
