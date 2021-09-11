@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.c                                            :+:      :+:    :+:   */
+/*   draw_image.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bemmanue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,7 +14,7 @@
 
 t_comp	init_complex(double re, double im)
 {
-	t_comp complex;
+	t_comp	complex;
 
 	complex.re = re;
 	complex.im = im;
@@ -23,7 +23,7 @@ t_comp	init_complex(double re, double im)
 
 void	pixel_put(t_fractol *data, int x, int y, int color)
 {
-	char *dst;
+	char	*dst;
 
 	if (data->x < WIDTH && data->y < WIDTH)
 	{

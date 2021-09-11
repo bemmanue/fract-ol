@@ -10,17 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "fractol.h"
 
 void	burningship(t_fractol *data)
 {
-	while (pow(data->z.re, 2.0) + pow(data->z.im, 2.0) <= 4 &&
-	data->iteration < data->max_iteration)
+	while (pow(data->z.re, 2.0) + pow(data->z.im, 2.0) <= 4
+		&& data->iteration < data->max_iteration)
 	{
 		data->z = init_complex(
-				pow(data->z.re, 2.0) - pow(data->z.im, 2.0) +
-				data->c.re,
+				pow(data->z.re, 2.0) - pow(data->z.im, 2.0) + data->c.re,
 				2.0 * fabs(data->z.re * data->z.im) - data->c.im);
 		data->iteration++;
 		data->color += data->color_step;

@@ -15,7 +15,8 @@
 int	new_image(t_fractol *data)
 {
 	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	data->addr = mlx_get_data_addr(data->img, &data->bpp, &data->sl, &data->end);
+	data->addr = mlx_get_data_addr(data->img,
+			&data->bpp, &data->sl, &data->end);
 	draw_image(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	return (0);
@@ -27,12 +28,12 @@ void	start_fractol(t_fractol *data)
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, data->name);
 	new_image(data);
 	mlx_mouse_hook(data->win, mouse_hook, data);
-	//	mlx_hook(data->win, 6, 0, julia_motion, data);
+	mlx_hook(data->win, 6, 0, julia_motion, data);
 	mlx_hook(data->win, 2, 0, key_hook, data);
 	mlx_loop(data->mlx);
 }
 
-int		main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_fractol	*data;
 
