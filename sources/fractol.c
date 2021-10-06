@@ -18,7 +18,7 @@ void	new_image(t_fractol *data)
 	if (!data->img)
 		terminate();
 	data->addr = mlx_get_data_addr(data->img,
-								   &data->bpp, &data->sl, &data->end);
+			&data->bpp, &data->sl, &data->end);
 	if (!data->addr)
 		terminate();
 	draw_image(data);

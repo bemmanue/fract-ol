@@ -16,19 +16,19 @@ void	show_help(t_fractol *data)
 {
 	mlx_string_put(data->mlx, data->win, 231, 100, 0x00FFFFFF, "HELP");
 	mlx_string_put(data->mlx, data->win, 95, 170, 0x00FFFFFF,
-				   " Change color  -  SPACEBAR");
+		" Change color  -  SPACEBAR");
 	mlx_string_put(data->mlx, data->win, 95, 200, 0x00FFFFFF,
-				   "         Move  -  < >");
+		"         Move  -  < >");
 	mlx_string_put(data->mlx, data->win, 95, 230, 0x00FFFFFF,
-				   "         Zoom  -  SCROLL");
+		"         Zoom  -  SCROLL");
 	mlx_string_put(data->mlx, data->win, 95, 260, 0x00FFFFFF,
-				   "   Iterations  -  +/-");
+		"   Iterations  -  +/-");
 	mlx_string_put(data->mlx, data->win, 95, 290, 0x00FFFFFF,
-				   "        Reset  -  R");
+		"        Reset  -  R");
 	mlx_string_put(data->mlx, data->win, 95, 320, 0x00FFFFFF,
-				   "         Exit  -  ESCAPE");
+		"         Exit  -  ESCAPE");
 	mlx_string_put(data->mlx, data->win, 95, 350, 0x00FFFFFF,
-				   "Julia setting  -  J");
+		"Julia setting  -  J");
 }
 
 void	print_help(void)

@@ -34,7 +34,7 @@ void	pixel_put(t_fractol *data, int x, int y, int color)
 
 void	draw_image(t_fractol *data)
 {
-	int color;
+	int	color;
 
 	data->y = 0;
 	while (data->y < HEIGHT)

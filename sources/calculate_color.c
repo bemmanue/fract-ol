@@ -12,9 +12,9 @@
 
 #include "fractol.h"
 
-int calculate_color(t_fractol *data)
+int	calculate_color(t_fractol *data)
 {
-	int color;
+	int				color;
 	unsigned char	c;
 
 	color = 0;
@@ -32,9 +32,9 @@ int calculate_color(t_fractol *data)
 
 void	calculate_colorstep(t_fractol *data)
 {
-	int r;
-	int g;
-	int b;
+	int	r;
+	int	g;
+	int	b;
 
 	if (data->colormode % 3 == 0)
 	{
