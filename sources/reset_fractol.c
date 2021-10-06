@@ -26,4 +26,5 @@ void	reset_fractol(t_fractol *data)
 	data->fixed_julia = 1;
 	data->max_iteration = MAX_ITERATION;
 	data->colormode = 0;
+	calculate_colorstep(data);
 }

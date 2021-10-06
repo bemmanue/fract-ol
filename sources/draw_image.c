@@ -32,8 +32,10 @@ void	pixel_put(t_fractol *data, int x, int y, int color)
 	}
 }
 
-int	draw_image(t_fractol *data)
+void	draw_image(t_fractol *data)
 {
+	int color;
+
 	data->y = 0;
 	while (data->y < HEIGHT)
 	{
@@ -42,18 +44,16 @@ int	draw_image(t_fractol *data)
 		while (data->x < WIDTH)
 		{
 			data->iteration = 0;
-			data->color = 0x00000000;
 			data->c.re = (data->x - data->centre.re) * data->ratio.re;
 			data->z = init_complex(data->c.re, data->c.im);
 			(data->calculate)(data);
-			calculate_color(data);
+			color = calculate_color(data);
 			if (data->iteration != data->max_iteration)
-				pixel_put(data, data->x, data->y, data->color);
+				pixel_put(data, data->x, data->y, color);
 			else
 				pixel_put(data, data->x, data->y, 0x00000000);
 			data->x++;
 		}
 		data->y++;
 	}
-	return (0);
 }

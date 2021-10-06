@@ -16,7 +16,7 @@ int	check_name(const char *s1, const char *s2)
 {
 	unsigned char	another_register;
 
-	while (*s1 && *s2)
+	while (*s1)
 	{
 		if (*s2 >= 'A' && *s2 <= 'Z')
 			another_register = *s2 + 32;
@@ -42,6 +42,7 @@ t_fractol	*fill_data(char *name, void (*calculate)(t_fractol *))
 	data->name = name;
 	data->calculate = calculate;
 	data->julia_motion = julia_motion;
+	data->help = 0;
 	data->fixed_julia = 1;
 	data->centre.re = WIDTH / 2;
 	data->centre.im = HEIGHT / 2;
@@ -54,6 +55,7 @@ t_fractol	*fill_data(char *name, void (*calculate)(t_fractol *))
 	data->k = init_complex(0.4, 0.4);
 	data->max_iteration = MAX_ITERATION;
 	data->colormode = 0;
+	calculate_colorstep(data);
 	return (data);
 }
 
@@ -61,6 +63,7 @@ t_fractol	*init_fractol(char *name)
 {
 	t_fractol	*data;
 
+	data = NULL;
 	if (check_name("Mandelbrot", name))
 		data = fill_data("Mandelbrot", &mandelbrot);
 	else if (check_name("Julia", name))
@@ -68,6 +71,6 @@ t_fractol	*init_fractol(char *name)
 	else if (check_name("Burningship", name))
 		data = fill_data("Burningship", &burningship);
 	else
-		data = NULL;
+		print_help();
 	return (data);
 }

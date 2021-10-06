@@ -21,6 +21,5 @@ void	mandelbrot(t_fractol *data)
 				pow(data->z.re, 2.0) - pow(data->z.im, 2.0) + data->c.re,
 				2.0 * data->z.re * data->z.im + data->c.im);
 		data->iteration++;
-		data->color += data->color_step;
 	}
 }

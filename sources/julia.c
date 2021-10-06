@@ -21,6 +21,5 @@ void	julia(t_fractol *data)
 				pow(data->z.re, 2.0) - pow(data->z.im, 2.0) + data->k.re,
 				2.0 * data->z.re * data->z.im + data->k.im);
 		data->iteration++;
-		data->color += data->color_step;
 	}
 }

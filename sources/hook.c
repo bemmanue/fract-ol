@@ -17,7 +17,10 @@ int	key_hook(int keycode, t_fractol *data)
 	if (keycode == ESCAPE)
 		exit(0);
 	else if (keycode == SPACEBAR)
+	{
 		data->colormode++;
+		calculate_colorstep(data);
+	}
 	else if (keycode == KEY_UP)
 		data->centre.im += 20;
 	else if (keycode == KEY_DOWN)
@@ -27,15 +30,31 @@ int	key_hook(int keycode, t_fractol *data)
 	else if (keycode == KEY_LEFT)
 		data->centre.re += 20;
 	else if (keycode == PLUS)
+	{
 		data->max_iteration++;
-	else if (keycode == MINUS)
+		calculate_colorstep(data);
+	}
+	else if (keycode == MINUS && data->max_iteration > 1)
+	{
 		data->max_iteration--;
+		calculate_colorstep(data);
+	}
 	else if (keycode == KEY_R)
 		reset_fractol(data);
 	else if (keycode == KEY_J)
-		data->fixed_julia = 0;
-	else if (keycode == KEY_S)
-		data->fixed_julia = 1;
+	{
+		if (data->fixed_julia == 0)
+			data->fixed_julia = 1;
+		else if (data->fixed_julia == 1)
+			data->fixed_julia = 0;
+	}
+	else if (keycode == KEY_H)
+	{
+		if (data->help == 0)
+			data->help = 1;
+		else if (data->help == 1)
+			data->help = 0;
+	}
 	mlx_destroy_image(data->mlx, data->img);
 	new_image(data);
 	return (0);
