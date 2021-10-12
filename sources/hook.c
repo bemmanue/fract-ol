@@ -12,36 +12,9 @@
 
 #include "fractol.h"
 
-int	key_hook(int keycode, t_fractol *data)
+static void	change_variables(int keycode, t_fractol *data)
 {
-	if (keycode == ESCAPE)
-		exit(0);
-	else if (keycode == SPACEBAR)
-	{
-		data->colormode++;
-		calculate_colorstep(data);
-	}
-	else if (keycode == KEY_UP)
-		data->centre.im += 20;
-	else if (keycode == KEY_DOWN)
-		data->centre.im -= 20;
-	else if (keycode == KEY_RIGHT)
-		data->centre.re -= 20;
-	else if (keycode == KEY_LEFT)
-		data->centre.re += 20;
-	else if (keycode == PLUS)
-	{
-		data->max_iteration++;
-		calculate_colorstep(data);
-	}
-	else if (keycode == MINUS && data->max_iteration > 1)
-	{
-		data->max_iteration--;
-		calculate_colorstep(data);
-	}
-	else if (keycode == KEY_R)
-		reset_fractol(data);
-	else if (keycode == KEY_J)
+	if (keycode == KEY_J)
 	{
 		if (data->fixed_julia == 0)
 			data->fixed_julia = 1;
@@ -55,6 +28,43 @@ int	key_hook(int keycode, t_fractol *data)
 		else if (data->help == 1)
 			data->help = 0;
 	}
+}
+
+static void	shift_image(int keycode, t_fractol *data)
+{
+	if (keycode == KEY_UP)
+		data->centre.im += 20;
+	else if (keycode == KEY_DOWN)
+		data->centre.im -= 20;
+	else if (keycode == KEY_RIGHT)
+		data->centre.re -= 20;
+	else if (keycode == KEY_LEFT)
+		data->centre.re += 20;
+}
+
+int	key_hook(int keycode, t_fractol *data)
+{
+	if (keycode == ESCAPE)
+		exit(0);
+	else if (keycode == KEY_R)
+		reset_fractol(data);
+	else if (keycode == KEY_UP || keycode == KEY_DOWN
+		|| keycode == KEY_RIGHT || keycode == KEY_LEFT)
+		shift_image(keycode, data);
+	else if (keycode == PLUS || keycode == MINUS || keycode == SPACEBAR)
+	{
+		if (keycode == PLUS && data->max_iteration < 48)
+			data->max_iteration++;
+		else if (keycode == MINUS && data->max_iteration > 1)
+			data->max_iteration--;
+		else if (keycode == SPACEBAR)
+			data->colormode++;
+		else
+			return (0);
+		calculate_colorstep(data);
+	}
+	else if (keycode == KEY_J || keycode == KEY_H)
+		change_variables(keycode, data);
 	mlx_destroy_image(data->mlx, data->img);
 	new_image(data);
 	return (0);

@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/fractol.h"
+#include "fractol.h"
 
 int	check_name(const char *s1, const char *s2)
 {
 	unsigned char	another_register;
 
-	while (*s1)
+	while (*s1 || *s2)
 	{
 		if (*s2 >= 'A' && *s2 <= 'Z')
 			another_register = *s2 + 32;

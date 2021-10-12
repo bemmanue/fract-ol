@@ -51,9 +51,9 @@ typedef struct s_fractol
 {
 	char		*name;
 	void		(*calculate)(struct s_fractol *data);
-	int 		(*julia_motion)(int x, int y, struct s_fractol *data);
+	int			(*julia_motion)(int x, int y, struct s_fractol *data);
 	int			fixed_julia;
-	int 		help;
+	int			help;
 	t_comp		max;
 	t_comp		min;
 	t_comp		ratio;
@@ -72,7 +72,7 @@ typedef struct s_fractol
 	int			x;
 	int			y;
 	int			colorstep;
-	int 		colormode;
+	int			colormode;
 	int			iteration;
 	int			max_iteration;
 }				t_fractol;
@@ -80,13 +80,13 @@ typedef struct s_fractol
 t_fractol	*init_fractol(char *name);
 t_fractol	*fill_data(char *name, void (*f)(t_fractol *));
 int			check_name(const char *s1, const char *s2);
-void 		start_fractol(t_fractol *data);
-void 		new_image(t_fractol *data);
+void		start_fractol(t_fractol *data);
+void		new_image(t_fractol *data);
 void		draw_image(t_fractol *data);
 void		pixel_put(t_fractol *data, int x, int y, int color);
 t_comp		init_complex(double re, double im);
-int 		calculate_color(t_fractol *data);
-void    	calculate_colorstep(t_fractol *data);
+int			calculate_color(t_fractol *data);
+void		calculate_colorstep(t_fractol *data);
 void		reset_fractol(t_fractol *data);
 int			key_hook(int keycode, t_fractol *data);
 int			mouse_hook(int mousecode, int x, int y, t_fractol *data);

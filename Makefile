@@ -1,45 +1,46 @@
 
-NAME = fractol
+NAME			=	fractol
 
-SRC_PATH = sources
-SRC_NAME = fractol.c hook.c mandelbrot.c draw_image.c julia.c burningship.c init_fractol.c help.c calculate_color.c reset_fractol.c terminate.c
+SRCS			=	sources/fractol.c			\
+					sources/burningship.c		\
+					sources/calculate_color.c	\
+					sources/draw_image.c		\
+					sources/help.c				\
+					sources/hook.c				\
+					sources/init_fractol.c		\
+					sources/julia.c				\
+					sources/mandelbrot.c		\
+					sources/reset_fractol.c		\
+					sources/terminate.c
 
-OBJ_PATH = objects
-OBJ_NAME = $(SRC_NAME:.c=.o)
+OBJS			=	$(SRCS:.c=.o)
 
-CC = clang
-CFLAGS = -Wall -Werror -Wextra
+LIBFT			=	libft.a
+LIBFT_PATH		=	./libft/
+LIBFTMAKE		=	$(MAKE) all -sC $(LIBFT_PATH)
 
-CPPFLAGS = -I includes -I libft/includes
+CC				=	gcc
+CFLAGS			=	-Wall -Wextra -Werror
+MLXFLAGS		=	-lmlx -framework OpenGL -framework AppKit
 
-LDFLAGS = -L libft
-LDLIBS = -O2 -lft -lm -lmlx -framework OpenGL -framework AppKit
+all:				lib $(NAME)
 
-SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
-OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
+.c.o:
+					$(CC) $(CFLAGS) -I./includes/ -c $< -o $@
 
-all: $(NAME)
+$(NAME):			$(OBJS)
+					$(CC) $(CFLAGS) $(MLXFLAGS) $(OBJS) -L$(LIBFT_PATH) -lft -o $(NAME)
 
-$(NAME): $(OBJ)
-	@make -C libft
-	@$(CC) $(LDFLAGS) $(LDLIBS) $^ -o $@
-	@echo "Compilation of Fractol:	\033[1;32mOK\033[m"
-
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
-	@mkdir $(OBJ_PATH) 2> /dev/null || true
-	@$(CC) $(CFLAGS) -c $< $(CPPFLAGS) -o $@
+lib:
+					$(LIBFTMAKE)
 
 clean:
-	@make -C libft clean
-	@rm -f $(OBJ)
-	@rmdir $(OBJ_PATH) 2> /dev/null || true
-	@echo "Fractol: Removing Objs"
+					$(MAKE)	clean -sC $(LIBFT_PATH)
+					rm -rf $(OBJS)
 
-fclean: clean
-	@make -C libft fclean
-	@rm -f $(NAME)
-	@echo "Fractol : Removing Fractol"
+fclean:				clean
+					$(MAKE)	fclean -sC $(LIBFT_PATH)
+					rm -rf $(NAME)
 
-re: fclean all
-
-.PHONY: all clean fclean re
+re:					fclean all
+.PHONY:				all lib clean fclean re
