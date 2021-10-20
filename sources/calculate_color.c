@@ -12,87 +12,126 @@
 
 #include "fractol.h"
 
+static unsigned char calculate_end(t_fractol *data)
+{
+	unsigned char	c;
+	int 			check;
+	double			q;
+	double			k;
+
+	c = 0;
+	q = data->max_iteration / 5.0;
+	k = data->max_iteration - q;
+	if (data->iteration > q && data->iteration <= q * 2.0)
+		c = 0xFF;
+	else if (data->iteration <= q * 3.0 && data->iteration > q * 2.0)
+	{
+		check = (char) data->color.blue * (q * 3.0 - data->iteration);
+		c = (char) data->color.blue * (q * 3.0 - data->iteration);
+		if (check > 0xFF)
+			c = 0xFF;
+	}
+	else if (data->iteration <= q)
+	{
+		check = data->color.red * data->iteration;
+		c = (char) data->color.red * data->iteration;
+		if (check > 0xFF)
+			c = 0xFF;
+	}
+	return (c);
+}
+
+static unsigned char calculate_middle(t_fractol *data)
+{
+	unsigned char	c;
+	int				check;
+	double			q;
+	double			k;
+
+	c = 0;
+	q = data->max_iteration / 5.0;
+	k = data->max_iteration - q;
+	if (data->iteration <= k && data->iteration > q * 2.0)
+		c = 0xFF;
+	else if (data->iteration >= k)
+	{
+		check = (char) data->color.green * (data->max_iteration - data->iteration);
+		c = (char) data->color.green * (data->max_iteration - data->iteration);
+		if (check > 0xFF)
+			c = 0xFF;
+	}
+	if (data->iteration > q && data->iteration <= q * 2.0)
+	{
+		check = (char) data->color.green * (q + (data->iteration - q * 2.0));
+		c = (char) data->color.green * (q + (data->iteration- q * 2.0));
+		if (check > 0xFF)
+			c = 0xFF;
+	}
+	return (c);
+}
+
+static unsigned char calculate_center(t_fractol *data)
+{
+	unsigned char	c;
+	int				check;
+	double			q;
+	double			k;
+
+	c = 0;
+	q = data->max_iteration / 5.0;
+	k = data->max_iteration - q;
+
+	if (data->iteration > k)
+		c = 0xFF;
+	else if (data->iteration <= k && data->iteration > q * 3.0)
+	{
+		check = data->color.red * (data->iteration - q * 3.0);
+		c = (char) data->color.red * (data->iteration - q * 3.0);
+		if (check > 0xFF)
+			c = 0xFF;
+	}
+	return (c);
+}
+
 static int	calculate_third(t_fractol *data)
 {
 	int				color;
-	unsigned char	c;
-	int				i;
 
 	color = 0;
-	i = 2 * (data->iteration - (data->max_iteration / 2));
 	color <<= 8;
-	c = data->color.red * data->iteration;
-	color += c;
-	if (data->iteration > data->max_iteration / 2)
-	{
-		c = data->color.red * (data->iteration - (data->max_iteration / 2));
-		color -= c;
-	}
+	color += calculate_middle(data);
 	color <<= 8;
-	c = data->color.green * data->iteration;
-	color += c;
+	color += calculate_end(data);
 	color <<= 8;
-	if (data->iteration > data->max_iteration / 2)
-	{
-		c = data->color.blue * i;
-		color += c;
-	}
+	color += calculate_center(data);
 	return (color);
 }
 
 static int	calculate_second(t_fractol *data)
 {
 	int				color;
-	unsigned char	c;
-	int				i;
 
 	color = 0;
-	i = 2 * (data->iteration - (data->max_iteration / 2));
 	color <<= 8;
-	c = data->color.red * data->iteration;
-	color += c;
-	if (data->iteration > data->max_iteration / 2)
-	{
-		c = data->color.red * (data->iteration - (data->max_iteration / 2));
-		color -= c;
-	}
+	color += calculate_end(data);
 	color <<= 8;
-	if (data->iteration > data->max_iteration / 2)
-	{
-		c = data->color.green * i;
-		color += c;
-	}
+	color += calculate_center(data);
 	color <<= 8;
-	c = data->color.blue * data->iteration;
-	color += c;
+	color += calculate_middle(data);
 	return (color);
 }
 
 static int	calculate_first(t_fractol *data)
 {
 	int				color;
-	unsigned char	c;
-	int				i;
 
 	color = 0;
-	i = 2 * (data->iteration - (data->max_iteration / 2));
 	color <<= 8;
-	if (data->iteration > data->max_iteration / 2)
-	{
-		c = data->color.red * i;
-		color += c;
-	}
+	color += calculate_center(data);
 	color <<= 8;
-	c = data->color.green * data->iteration;
-	color += c;
-	if (data->iteration > data->max_iteration / 2)
-	{
-		c = data->color.green * (data->iteration - (data->max_iteration / 2));
-		color -= c;
-	}
+	color += calculate_middle(data);
 	color <<= 8;
-	c = data->color.blue * data->iteration;
-	color += c;
+	color += calculate_end(data);
 	return (color);
 }
 
@@ -112,14 +151,12 @@ int	calculate_color(t_fractol *data)
 
 void	calculate_colorstep(t_fractol *data)
 {
-	int	r;
-	int	g;
-	int	b;
+	double	q;
+	int		i;
 
-	r = 0xFF;
-	g = 0xFF;
-	b = 0xFF;
-	data->color.red = (double) r / data->max_iteration;
-	data->color.green = (double) g / data->max_iteration;
-	data->color.blue = (double) b / data->max_iteration;
+	i = 0;
+	q = data->max_iteration / 5.0;
+	data->color.red = (double) 0xFF / q;
+	data->color.green = (double) 0xFF / q;
+	data->color.blue = (double) 0xFF / q;
 }

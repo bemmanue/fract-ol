@@ -15,7 +15,7 @@
 void	mandelbrot(t_fractol *data)
 {
 	while (pow(data->z.re, 2.0) + pow(data->z.im, 2.0) <= 4
-		&& data->iteration < data->max_iteration)
+		&& data->iteration <= data->max_iteration)
 	{
 		data->z = init_complex(
 				pow(data->z.re, 2.0) - pow(data->z.im, 2.0) + data->c.re,

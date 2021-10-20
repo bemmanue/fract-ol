@@ -71,6 +71,7 @@ typedef struct s_fractol
 	int			bpp;
 	int			x;
 	int			y;
+	int 		*colorset;
 	int			colorstep;
 	int			colormode;
 	int			iteration;
